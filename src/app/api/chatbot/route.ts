@@ -1,15 +1,14 @@
-
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_LANGFLOW_API_URL;
 const LANGFLOW_ID = process.env.NEXT_PUBLIC_LANGFLOW_ID;
-const ENDPOINT = process.env.NEXT_PUBLIC_LANGFLOW_ENDPOINT;
+const ENDPOINT = process.env.NEXT_PUBLIC_LANGFLOW_ENDPOINT || "defaultEndpoint";
 const APPLICATION_TOKEN = process.env.NEXT_PUBLIC_LANGFLOW_APPLICATION_TOKEN;
 
 async function runFlow(
   message: string,
-  endpoint: string = ENDPOINT || "defaultEndpoint",
+  endpoint: string = ENDPOINT,
   outputType: string = "chat",
   inputType: string = "chat",
   tweaks?: Record<string, unknown>
@@ -36,33 +35,31 @@ async function runFlow(
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { message } = req.body;
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { message } = body;
 
     if (!message) {
-      res.status(400).json({ error: "No message provided" });
-      return;
+      return NextResponse.json(
+        { error: "No message provided" },
+        { status: 400 }
+      );
     }
 
-    try {
-      const response = await runFlow(message);
+    const response = await runFlow(message);
 
-      if (response.error) {
-        res.status(500).json(response);
-        return;
-      }
-
-      const messageData =
-        response?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
-        "Sorry, I did not understand that.";
-
-      res.status(200).json({ reply: messageData });
-    } catch (error) {
-      console.error("Error processing chatbot request:", error);
-      res.status(500).json({ error: "Internal server error" });
+    if (response.error) {
+      return NextResponse.json(response, { status: 500 });
     }
-  } else {
-    res.status(405).json({ error: "Method not allowed" });
+
+    const messageData =
+      response?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
+      "Sorry, I did not understand that.";
+
+    return NextResponse.json({ reply: messageData });
+  } catch (error) {
+    console.error("Error processing chatbot request:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
