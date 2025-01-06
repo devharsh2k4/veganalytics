@@ -5,6 +5,7 @@ import axios from 'axios';
 import Hero from './components/Hero';
 import InfiniteMarquee from './components/InfiniteMarquee';
 import FeaturesSection from './components/FeaturesSection';
+import TeamSection from './components/TeamSection';
 
 interface SocialMediaData {
   labels: string[];
@@ -35,6 +36,7 @@ export default function Home() {
      <Hero/>
      <InfiniteMarquee/>
      <FeaturesSection/>
+     <TeamSection/>
       <ul className='mt-10'>
         {data.labels.map((label, index) => (
           <li key={index}>
