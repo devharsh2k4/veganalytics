@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<{ user: string; bot: string }[]>([]);
@@ -25,23 +26,7 @@ const ChatPage: React.FC = () => {
         body: JSON.stringify({ message: userMessage }),
       });
 
-      const text = await response.text();
-      let data;
-
-      try {
-        data = JSON.parse(text);
-      } catch {
-        console.error("Invalid JSON response:", text);
-        setMessages((prev) =>
-          prev.map((msg, index) =>
-            index === prev.length - 1
-              ? { ...msg, bot: `Error: ${text}` }
-              : msg
-          )
-        );
-        return;
-      }
-
+      const data = await response.json();
       if (response.ok) {
         setMessages((prev) =>
           prev.map((msg, index) =>
@@ -51,9 +36,7 @@ const ChatPage: React.FC = () => {
       } else {
         setMessages((prev) =>
           prev.map((msg, index) =>
-            index === prev.length - 1
-              ? { ...msg, bot: `Error: ${data.error}` }
-              : msg
+            index === prev.length - 1 ? { ...msg, bot: "Error: Unable to fetch response." } : msg
           )
         );
       }
@@ -61,9 +44,7 @@ const ChatPage: React.FC = () => {
       console.error("Error fetching response:", error);
       setMessages((prev) =>
         prev.map((msg, index) =>
-          index === prev.length - 1
-            ? { ...msg, bot: "Error: Unable to fetch response." }
-            : msg
+          index === prev.length - 1 ? { ...msg, bot: "Error: Unable to fetch response." } : msg
         )
       );
     } finally {
@@ -85,7 +66,7 @@ const ChatPage: React.FC = () => {
                 <strong>User:</strong> {msg.user}
               </p>
               <div className="text-green-400">
-                <strong>Bot:</strong> <ReactMarkdown>{msg.bot}</ReactMarkdown>
+                <strong>Bot:</strong> <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.bot}</ReactMarkdown>
               </div>
             </div>
           ))
