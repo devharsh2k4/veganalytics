@@ -38,7 +38,8 @@ const ChatPage: React.FC = () => {
           )
         );
       }
-    } catch {
+    } catch (error) {
+      console.error("Error fetching response:", error);
       setMessages((prev) =>
         prev.map((msg, index) =>
           index === prev.length - 1 ? { ...msg, bot: "Error: Unable to fetch response." } : msg

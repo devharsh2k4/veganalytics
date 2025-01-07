@@ -62,7 +62,11 @@ export async function POST(req: NextRequest) {
     const langflowClient = new LangflowClient(baseURL, applicationToken as string);
     const response = await langflowClient.runFlow(flowIdOrName, langflowId, message, "chat", "chat", tweaks);
 
-    return NextResponse.json({ reply: response.outputs?.[0]?.outputs?.[0]?.outputs?.message?.text || "No response" });
+    const reply =
+      response?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
+      "No response available from Langflow.";
+
+    return NextResponse.json({ reply });
   } catch (error) {
     console.error("Error running Langflow API:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
