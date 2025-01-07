@@ -1,14 +1,44 @@
 "use client";
 
-import React from "react";
-import {  Line, Pie } from "react-chartjs-2";
-import { useData } from "../components/DataContext";
+import React, { useEffect, useState } from "react";
+import { Line, Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement);
+
+interface ProcessedData {
+  reel: number;
+  carousel: number;
+  static: number;
+  dates: string[];
+  likes: number[];
+  shares: number[];
+  comments: number[];
+}
 
 const VisualizePage: React.FC = () => {
-  const { data } = useData();
+  const [data, setData] = useState<ProcessedData | null>(null);
+
+  useEffect(() => {
+    // Simulate fetching processed CSV data from the API
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/analyze/csv");
+        const rawData = await response.json();
+
+        // Process CSV data into the required format
+        const processedData = processCsvData(rawData);
+        setData(processedData);
+      } catch (error) {
+        console.error("Error fetching CSV data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (!data) {
-    return <p>No data available. Please go back and fetch data.</p>;
+    return <p className="text-center text-white">Loading data...</p>;
   }
 
   // Chart data
@@ -64,3 +94,41 @@ const VisualizePage: React.FC = () => {
 };
 
 export default VisualizePage;
+
+// Function to process CSV data
+interface RawData {
+  Post_Type: string;
+  Likes: string;
+  Shares: string;
+  Comments: string;
+}
+
+const processCsvData = (rawData: RawData[]): ProcessedData => {
+  const postTypes = { Reel: 0, Carousel: 0, Static: 0 };
+  const dates: string[] = [];
+  const likes: number[] = [];
+  const shares: number[] = [];
+  const comments: number[] = [];
+
+  rawData.forEach((row) => {
+    const { Post_Type, Likes, Shares, Comments } = row;
+    if (postTypes[Post_Type as keyof typeof postTypes] !== undefined) {
+      postTypes[Post_Type as keyof typeof postTypes] += 1;
+    }
+
+    dates.push(`${dates.length + 1}`); // Simulating sequential days
+    likes.push(Number(Likes));
+    shares.push(Number(Shares));
+    comments.push(Number(Comments));
+  });
+
+  return {
+    reel: postTypes["Reel"] || 0,
+    carousel: postTypes["Carousel"] || 0,
+    static: postTypes["Static"] || 0,
+    dates,
+    likes,
+    shares,
+    comments,
+  };
+};

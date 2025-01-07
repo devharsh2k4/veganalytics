@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   const router = useRouter();
 
   const handleGetStarted = () => {
-    router.push("/analyze");
+    router.push("/visualize");
   };
 
   return (
