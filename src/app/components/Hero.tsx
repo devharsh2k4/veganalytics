@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { Lightbulb } from "lucide-react";
 
 const Hero: React.FC = () => {
   const router = useRouter();
@@ -16,14 +17,13 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center">
         {/* Left Content */}
         <div className="lg:w-1/2">
-          <div className="flex items-center space-x-4 mb-6">
-            <button className="bg-blue-500 text-white py-1 px-4 rounded-full text-sm hover:bg-blue-600">
-              Powered by LangFlow
-            </button>
-            <button className="bg-blue-500 text-white py-1 px-4 rounded-full text-sm hover:bg-blue-600">
-              Powered by DataStax
-            </button>
-          </div>
+        <div className="flex items-center space-x-4 mb-6">
+      <button className="flex items-center bg-transparent text-white py-1 px-4 rounded-full border text-sm hover:bg-blue-600">
+        {/* Lightbulb Icon */}
+        <Lightbulb className="h-4 w-4 mr-2" />
+        Powered by LangFlow & DataStax
+      </button>
+    </div>
           <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-4">
             Transform Your{" "}
             <span className="text-blue-400">Social Media Strategy</span>
@@ -36,13 +36,11 @@ const Hero: React.FC = () => {
             {/* Get Started Button */}
             <button
               onClick={handleGetStarted}
-              className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-medium hover:bg-blue-600"
+              className="bg-transparent border text-white py-3 px-6 rounded-full text-lg font-medium hover:bg-blue-600"
             >
               Get Started →
             </button>
-            <button className="bg-gray-700 text-white py-3 px-6 rounded-md text-lg font-medium hover:bg-gray-800">
-              View Demo
-            </button>
+           
           </div>
         </div>
 

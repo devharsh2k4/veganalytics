@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      backdropBlur: {
+        md: '8px',
+      },
       animation: {
         marquee: "marquee 10s linear infinite", // Adjust duration as needed
       },
