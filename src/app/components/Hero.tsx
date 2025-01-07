@@ -1,7 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Hero: React.FC = () => {
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    router.push("/analyze");
+  };
+
   return (
     <section className="bg-slate-950 text-white py-16">
       <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center">
@@ -24,7 +33,11 @@ const Hero: React.FC = () => {
             social media engagement and grow your audience organically.
           </p>
           <div className="flex space-x-4">
-            <button className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-medium hover:bg-blue-600">
+            {/* Get Started Button */}
+            <button
+              onClick={handleGetStarted}
+              className="bg-blue-500 text-white py-3 px-6 rounded-md text-lg font-medium hover:bg-blue-600"
+            >
               Get Started →
             </button>
             <button className="bg-gray-700 text-white py-3 px-6 rounded-md text-lg font-medium hover:bg-gray-800">
@@ -45,13 +58,6 @@ const Hero: React.FC = () => {
             />
           </div>
         </div>
-      </div>
-
-      {/* Footer Stats */}
-      <div className="container mx-auto px-6 lg:px-20 mt-12 text-center">
-        <p className="text-gray-400">
-          <span className="font-bold text-white">200+</span> satisfied users
-        </p>
       </div>
     </section>
   );

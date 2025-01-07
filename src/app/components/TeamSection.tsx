@@ -16,10 +16,10 @@ const teamMembers = [
   {
     name: "Vikash Pathak",
     role: "AI Developer",
-    image: "/next.svg",
+    image: "/vikash.jpeg",
     university: "RCET (2025)",
-    linkedin: "https://linkedin.com/in/",
-    github: "https://github.com/",
+    linkedin: "https://linkedin.com/in/vikash-pathak-298a01183",
+    github: "https://github.com/pathakvikash",
   },
   {
     name: "Abhishek Rajan",
@@ -31,11 +31,11 @@ const teamMembers = [
   },
   {
     name: "Lekha Kol",
-    role: "Designer",
-    image: "/next.svg",
+    role: "Frontend Developer",
+    image: "/lekha.jpeg",
     university: "RCET (2025)",
-    linkedin: "https://linkedin.com/in/",
-    github: "https://github.com/",
+    linkedin: "https://www.linkedin.com/in/lekha-kol-9190b6261",
+    github: "https://github.com/lekha-kol",
   },
 ];
 
@@ -43,7 +43,7 @@ const TeamSection: React.FC = () => {
   return (
     <div className="bg-slate-950 py-16">
       {/* Section Header */}
-      <h2 className="text-center text-3xl md:text-4xl font-bold text-gray-200 mb-4">
+      <h2 className="text-center text-3xl md:text-4xl font-thin text-gray-200 mb-4">
         Our Team
       </h2>
      
