@@ -25,7 +25,23 @@ const ChatPage: React.FC = () => {
         body: JSON.stringify({ message: userMessage }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        console.error("Invalid JSON response:", text);
+        setMessages((prev) =>
+          prev.map((msg, index) =>
+            index === prev.length - 1
+              ? { ...msg, bot: `Error: ${text}` }
+              : msg
+          )
+        );
+        return;
+      }
+
       if (response.ok) {
         setMessages((prev) =>
           prev.map((msg, index) =>
@@ -35,7 +51,9 @@ const ChatPage: React.FC = () => {
       } else {
         setMessages((prev) =>
           prev.map((msg, index) =>
-            index === prev.length - 1 ? { ...msg, bot: "Error: Unable to fetch response." } : msg
+            index === prev.length - 1
+              ? { ...msg, bot: `Error: ${data.error}` }
+              : msg
           )
         );
       }
@@ -43,7 +61,9 @@ const ChatPage: React.FC = () => {
       console.error("Error fetching response:", error);
       setMessages((prev) =>
         prev.map((msg, index) =>
-          index === prev.length - 1 ? { ...msg, bot: "Error: Unable to fetch response." } : msg
+          index === prev.length - 1
+            ? { ...msg, bot: "Error: Unable to fetch response." }
+            : msg
         )
       );
     } finally {
