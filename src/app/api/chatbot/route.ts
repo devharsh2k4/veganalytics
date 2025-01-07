@@ -47,10 +47,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No message provided" }, { status: 400 });
   }
 
-  const flowIdOrName = "d5a432ca-b8b2-4f21-becd-99a6bbcc1954"; // Replace with your Flow ID or Name
-  const langflowId = "d233ad99-1702-4812-b471-c9c38594f538"; // Replace with your Langflow ID
-  const applicationToken = process.env.LANGFLOW_APPLICATION_TOKEN; // Replace with your application token
-  const baseURL = "https://api.langflow.astra.datastax.com";
+  const flowIdOrName = process.env.FLOWID_NAME; 
+  const langflowId = process.env.LANGFLOW_ID; 
+  const applicationToken = process.env.LANGFLOW_APPLICATION_TOKEN;
+  const baseURL = process.env.BASE_API_URL
 
   const tweaks = {
     "Prompt-vTI5V": {
@@ -59,8 +59,8 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const langflowClient = new LangflowClient(baseURL, applicationToken as string);
-    const response = await langflowClient.runFlow(flowIdOrName, langflowId, message, "chat", "chat", tweaks);
+    const langflowClient = new LangflowClient(baseURL!, applicationToken as string);
+    const response = await langflowClient.runFlow(flowIdOrName!, langflowId!, message, "chat", "chat", tweaks);
 
     const reply =
       response?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
