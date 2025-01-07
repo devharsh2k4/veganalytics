@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<{ user: string; bot: string }[]>([]);
@@ -63,9 +64,9 @@ const ChatPage: React.FC = () => {
               <p className="text-blue-400">
                 <strong>User:</strong> {msg.user}
               </p>
-              <p className="text-green-400">
-                <strong>Bot:</strong> {msg.bot}
-              </p>
+              <div className="text-green-400">
+                <strong>Bot:</strong> <ReactMarkdown>{msg.bot}</ReactMarkdown>
+              </div>
             </div>
           ))
         )}
