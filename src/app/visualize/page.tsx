@@ -65,7 +65,7 @@ const VisualizePage: React.FC = () => {
     return <p className="text-center text-white">Loading data...</p>;
   }
 
-  // Chart data
+
   const pieData = {
     labels: Object.keys(data.postTypes),
     datasets: [
@@ -123,13 +123,13 @@ const VisualizePage: React.FC = () => {
 
   return (
     <div className="p-4 bg-slate-950 min-h-screen text-white">
-      {/* Add padding to fix navigation overlap */}
+
       <div className="pt-16">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Social Media Analytics
         </h1>
 
-        {/* Filters */}
+
         <div className="flex justify-between items-center mb-6">
           <div className="flex space-x-4">
             <input
@@ -143,27 +143,29 @@ const VisualizePage: React.FC = () => {
               defaultValue="2025-01-31"
             />
           </div>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600">
+          <button className="px-4 py-2 bg-transparent border rounded-full text-white rounded text-sm hover:bg-blue-600">
             Apply
           </button>
         </div>
 
-        {/* Post Distribution, Engagement Summary, and Total Engagement */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="bg-transparent border p-4 rounded flex justify-between items-center">
-            <div className="text-sm flex-1 mr-4">
-              <h2 className="font-bold mb-2">Post Distribution</h2>
-              <ul className="text-xs space-y-1">
-                {Object.entries(data.postTypes).map(([type, count], index) => (
-                  <li key={index} className="flex justify-between">
-                    <span>{type}</span>
-                    <span>{count}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="w-60 h-60">
-              <Pie data={pieData} options={{ maintainAspectRatio: false }} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div className="bg-transparent border p-4 rounded">
+            <div className="flex justify-between items-center">
+              <div className="text-sm flex-1 mr-4">
+                <h2 className="font-bold mb-2">Post Distribution</h2>
+                <ul className="text-xs space-y-1">
+                  {Object.entries(data.postTypes).map(([type, count], index) => (
+                    <li key={index} className="flex justify-between">
+                      <span>{type}</span>
+                      <span>{count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="w-1/2 h-50">
+                <Pie data={pieData} options={{ maintainAspectRatio: false }} />
+              </div>
             </div>
           </div>
           <div className="bg-transparent border p-4 rounded">
@@ -185,7 +187,7 @@ const VisualizePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Line Chart and Bar Chart in the Same Row */}
+      
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div className="bg-transparent border p-4 rounded">
             <h2 className="text-sm font-bold mb-2">Post Performance Over Time</h2>
@@ -201,7 +203,7 @@ const VisualizePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Table */}
+
         <div className="bg-transparent border p-4 rounded">
           <h2 className="text-sm font-bold mb-2">Post Details</h2>
           <div className="overflow-x-auto">
@@ -267,7 +269,7 @@ const VisualizePage: React.FC = () => {
 
 export default VisualizePage;
 
-// Function to process CSV data
+
 interface CsvRow {
   Date: string;
   Post_Type: string;
@@ -305,7 +307,7 @@ const processCsvData = (rawData: CsvRow[]): ProcessedData => {
     shares.push(Number(Shares));
     comments.push(Number(Comments));
 
-    const engagementRate = "100%"; // Example: Replace with your calculation
+    const engagementRate = "100%"; 
     details.push({
       date: Date,
       type: Post_Type,

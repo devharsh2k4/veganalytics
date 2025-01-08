@@ -114,7 +114,6 @@ const ChatPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
       <div className="w-64 bg-gray-800 p-4 space-y-4">
         <h1 className="text-2xl font-bold text-center mb-4">VegaAnalytics</h1>
         <div className="space-y-2">
@@ -148,8 +147,6 @@ const ChatPage: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {/* Chat Area */}
       <div className="flex-1 flex flex-col" style={{ marginTop: "4rem" }}>
         <div className="flex-1 bg-gray-900 p-6 overflow-y-auto">
           {currentTab && currentTab.messages.length === 0 ? (
@@ -170,8 +167,6 @@ const ChatPage: React.FC = () => {
             ))
           )}
         </div>
-
-        {/* Input Box */}
         <div className="bg-gray-800 p-4">
           <div className="flex items-center space-x-4">
             <input

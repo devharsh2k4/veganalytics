@@ -26,7 +26,7 @@ class LangflowClient {
       try {
         return JSON.parse(responseMessage);
       } catch {
-        return responseMessage; // Handle non-JSON responses gracefully
+        return responseMessage; 
       }
     } catch (error) {
       console.error("Request Error:", error);

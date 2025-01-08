@@ -42,20 +42,20 @@ const teamMembers = [
 const TeamSection: React.FC = () => {
   return (
     <div className="bg-slate-950 py-16">
-      {/* Section Header */}
+    
       <h2 className="text-center text-3xl md:text-4xl font-thin text-gray-200 mb-4">
         Our Team
       </h2>
      
 
-      {/* Team Members Grid */}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-12">
         {teamMembers.map((member, index) => (
           <div
             key={index}
             className="bg-slate-900 rounded-lg p-6 text-center shadow-md hover:shadow-lg hover:bg-slate-800 transition"
           >
-            {/* Profile Picture */}
+   
             <div className="flex justify-center mb-4">
               <Image
                 src={member.image}
@@ -65,16 +65,16 @@ const TeamSection: React.FC = () => {
                 className="w-24 h-24 rounded-full ring-4 ring-blue-500 object-cover"
               />
             </div>
-            {/* Name and Role */}
+       
             <h3 className="text-lg font-semibold text-gray-200">
               {member.name}
             </h3>
             <p className="text-blue-400 text-sm font-medium">{member.role}</p>
-            {/* University */}
+      
             <p className="text-gray-400 text-xs mt-2">
               🎓 {member.university}
             </p>
-            {/* Social Links */}
+        
             <div className="flex justify-center items-center space-x-4 mt-4">
               <a
                 href={member.linkedin}

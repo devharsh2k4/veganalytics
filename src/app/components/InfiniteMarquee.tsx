@@ -9,7 +9,6 @@ const InfiniteMarquee: React.FC = () => {
     "/langflow.webp",
     "/openai.webp",
     "/nvdia.webp",
-    "/groq.webp",
     "/datastax.webp",
   ];
 
@@ -19,9 +18,7 @@ const InfiniteMarquee: React.FC = () => {
         Powered by
       </h1>
       <div className="overflow-hidden relative">
-        {/* Scrolling container */}
         <div className="flex animate-marquee space-x-10">
-          {/* Render logos */}
           {logos.map((logo, index) => (
             <Image
               key={index}
@@ -32,7 +29,6 @@ const InfiniteMarquee: React.FC = () => {
               className="h-12 w-auto"
             />
           ))}
-          {/* Duplicate logos for seamless scrolling */}
           {logos.map((logo, index) => (
             <Image
               key={`duplicate-${index}`}

@@ -52,26 +52,20 @@ const features = [
 const FeaturesSection: React.FC = () => {
   return (
     <div className="bg-slate-950 py-16">
-      {/* Section Heading */}
       <h2 className="text-center text-3xl md:text-4xl font-bold text-gray-200 mb-6">
         Powerful Features
       </h2>
       <p className="text-center text-gray-400 mb-12">
         Everything you need to analyze and improve your social media presence
       </p>
-
-      {/* Feature Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 md:px-12 lg:px-20">
         {features.map((feature, index) => (
           <div
             key={index}
             className="bg-slate-900 rounded-lg p-6 text-gray-300 shadow-md hover:shadow-lg hover:bg-slate-800 transition"
           >
-            {/* Icon */}
             <div className="mb-4">{feature.icon}</div>
-            {/* Title */}
             <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-            {/* Description */}
             <p className="text-sm">{feature.description}</p>
           </div>
         ))}

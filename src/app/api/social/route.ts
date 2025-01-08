@@ -40,7 +40,7 @@ const readCsv = async (filePath: string) => {
   });
 };
 
-// Export the `GET` method for the API route
+
 export async function GET() {
   const filePath = path.join(process.cwd(), 'data', 'data.csv');
   try {

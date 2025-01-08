@@ -7,7 +7,7 @@ const dataFilePath = path.join(process.cwd(), "data", "data.csv");
 
 export async function GET() {
   try {
-    // Check if the file exists
+
     if (!fs.existsSync(dataFilePath)) {
       return NextResponse.json(
         { error: "Data file not found" },
@@ -15,7 +15,7 @@ export async function GET() {
       );
     }
 
-    // Parse the CSV file
+
     const data = await new Promise((resolve, reject) => {
       const results: Record<string, string>[] = [];
       fs.createReadStream(dataFilePath)

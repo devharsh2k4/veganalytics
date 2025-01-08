@@ -1,8 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-
-// Define the type for the data structure
 export interface DataType {
   details: Array<{
     id: string;
@@ -30,7 +28,6 @@ const DataContext = createContext<DataContextType | null>(null);
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<DataType | null>(null);
-
   return (
     <DataContext.Provider value={{ data, setData }}>
       {children}
